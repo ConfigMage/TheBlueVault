@@ -107,11 +107,20 @@ export function HatDetail({
 
             <div>
               <span className="text-sm text-[var(--muted-foreground)]">
-                Storage Location
+                Location
               </span>
               <div className="mt-1">
-                <Badge variant="secondary">{hat.storage_bin}</Badge>
+                <Badge variant="secondary">{hat.location}</Badge>
               </div>
+            </div>
+
+            <div>
+              <span className="text-sm text-[var(--muted-foreground)]">
+                Price Paid
+              </span>
+              <p className="font-medium">
+                {hat.price_paid ? `$${hat.price_paid.toFixed(2)}` : "Not specified"}
+              </p>
             </div>
 
             <div>

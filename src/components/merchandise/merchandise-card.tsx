@@ -44,7 +44,7 @@ export function MerchandiseCard({ item, type, onClick }: MerchandiseCardProps) {
               {hat.color_design || "No design specified"}
             </p>
             <Badge variant="secondary" className="w-fit text-xs">
-              {hat.storage_bin}
+              {hat.location}
             </Badge>
           </>
         ) : (
@@ -55,6 +55,9 @@ export function MerchandiseCard({ item, type, onClick }: MerchandiseCardProps) {
             <p className="text-xs text-[var(--muted-foreground)] truncate">
               {jersey.color_design || "No design specified"}
             </p>
+            <Badge variant="secondary" className="w-fit text-xs">
+              {jersey.location}
+            </Badge>
           </>
         )}
       </div>

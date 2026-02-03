@@ -2,7 +2,8 @@ export interface Hat {
   id: string;
   team: string;
   color_design: string;
-  storage_bin: string;
+  location: string;
+  price_paid: number | null;
   image_url: string | null;
   created_at: string;
   updated_at: string;
@@ -13,6 +14,8 @@ export interface Jersey {
   team: string;
   player: string;
   color_design: string;
+  location: string;
+  price_paid: number | null;
   image_url: string | null;
   created_at: string;
   updated_at: string;
@@ -24,7 +27,7 @@ export interface DashboardStats {
   totalHats: number;
   totalJerseys: number;
   totalItems: number;
-  storageBinCounts: Record<string, number>;
+  locationCounts: Record<string, number>;
   teamCounts: { team: string; count: number }[];
 }
 
@@ -32,6 +35,6 @@ export interface FilterState {
   type: "all" | "hats" | "jerseys";
   team: string;
   colorDesign: string;
-  storageBin: string;
+  location: string;
   player: string;
 }

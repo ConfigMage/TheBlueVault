@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ImageUpload } from "./image-upload";
 import { TeamSelect } from "./team-select";
-import { StorageBinSelect } from "./storage-bin-select";
+import { LocationSelect } from "./location-select";
 import {
   Dialog,
   DialogContent,
@@ -27,7 +27,8 @@ interface HatFormProps {
 export function HatForm({ open, onOpenChange, hat, onSuccess }: HatFormProps) {
   const [team, setTeam] = useState(hat?.team || "");
   const [colorDesign, setColorDesign] = useState(hat?.color_design || "");
-  const [storageBin, setStorageBin] = useState(hat?.storage_bin || "");
+  const [location, setLocation] = useState(hat?.location || "");
+  const [pricePaid, setPricePaid] = useState(hat?.price_paid?.toString() || "");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [existingImageUrl, setExistingImageUrl] = useState(
     hat?.image_url || null
@@ -44,8 +45,8 @@ export function HatForm({ open, onOpenChange, hat, onSuccess }: HatFormProps) {
       return;
     }
 
-    if (!storageBin) {
-      toast.error("Please select a storage box");
+    if (!location) {
+      toast.error("Please select a location");
       return;
     }
 
@@ -81,7 +82,8 @@ export function HatForm({ open, onOpenChange, hat, onSuccess }: HatFormProps) {
       const hatData = {
         team,
         color_design: colorDesign,
-        storage_bin: storageBin,
+        location,
+        price_paid: pricePaid ? parseFloat(pricePaid) : null,
         image_url: imageUrl,
         updated_at: new Date().toISOString(),
       };
@@ -115,7 +117,8 @@ export function HatForm({ open, onOpenChange, hat, onSuccess }: HatFormProps) {
   const resetForm = () => {
     setTeam("");
     setColorDesign("");
-    setStorageBin("");
+    setLocation("");
+    setPricePaid("");
     setImageFile(null);
     setExistingImageUrl(null);
   };
@@ -154,12 +157,26 @@ export function HatForm({ open, onOpenChange, hat, onSuccess }: HatFormProps) {
             />
           </div>
 
-          <StorageBinSelect
-            label="Storage Box"
-            value={storageBin}
-            onChange={setStorageBin}
+          <LocationSelect
+            label="Location"
+            value={location}
+            onChange={setLocation}
             required
           />
+
+          <div>
+            <label className="block text-sm font-medium mb-1.5">
+              Price Paid
+            </label>
+            <Input
+              type="number"
+              step="0.01"
+              min="0"
+              placeholder="e.g., 29.99"
+              value={pricePaid}
+              onChange={(e) => setPricePaid(e.target.value)}
+            />
+          </div>
 
           <div className="flex gap-3 pt-4">
             <Button

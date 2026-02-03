@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ImageUpload } from "./image-upload";
 import { TeamSelect } from "./team-select";
+import { LocationSelect } from "./location-select";
 import {
   Dialog,
   DialogContent,
@@ -32,6 +33,8 @@ export function JerseyForm({
   const [team, setTeam] = useState(jersey?.team || "");
   const [player, setPlayer] = useState(jersey?.player || "");
   const [colorDesign, setColorDesign] = useState(jersey?.color_design || "");
+  const [location, setLocation] = useState(jersey?.location || "");
+  const [pricePaid, setPricePaid] = useState(jersey?.price_paid?.toString() || "");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [existingImageUrl, setExistingImageUrl] = useState(
     jersey?.image_url || null
@@ -50,6 +53,11 @@ export function JerseyForm({
 
     if (!player) {
       toast.error("Please enter a player name");
+      return;
+    }
+
+    if (!location) {
+      toast.error("Please select a location");
       return;
     }
 
@@ -86,6 +94,8 @@ export function JerseyForm({
         team,
         player,
         color_design: colorDesign,
+        location,
+        price_paid: pricePaid ? parseFloat(pricePaid) : null,
         image_url: imageUrl,
         updated_at: new Date().toISOString(),
       };
@@ -120,6 +130,8 @@ export function JerseyForm({
     setTeam("");
     setPlayer("");
     setColorDesign("");
+    setLocation("");
+    setPricePaid("");
     setImageFile(null);
     setExistingImageUrl(null);
   };
@@ -162,6 +174,27 @@ export function JerseyForm({
               placeholder="e.g., Home white with red accents"
               value={colorDesign}
               onChange={(e) => setColorDesign(e.target.value)}
+            />
+          </div>
+
+          <LocationSelect
+            label="Location"
+            value={location}
+            onChange={setLocation}
+            required
+          />
+
+          <div>
+            <label className="block text-sm font-medium mb-1.5">
+              Price Paid
+            </label>
+            <Input
+              type="number"
+              step="0.01"
+              min="0"
+              placeholder="e.g., 149.99"
+              value={pricePaid}
+              onChange={(e) => setPricePaid(e.target.value)}
             />
           </div>
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { toast } from "sonner";
 import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
@@ -113,6 +114,24 @@ export function JerseyDetail({
               </span>
               <p className="font-medium">
                 {jersey.color_design || "Not specified"}
+              </p>
+            </div>
+
+            <div>
+              <span className="text-sm text-[var(--muted-foreground)]">
+                Location
+              </span>
+              <div className="mt-1">
+                <Badge variant="secondary">{jersey.location}</Badge>
+              </div>
+            </div>
+
+            <div>
+              <span className="text-sm text-[var(--muted-foreground)]">
+                Price Paid
+              </span>
+              <p className="font-medium">
+                {jersey.price_paid ? `$${jersey.price_paid.toFixed(2)}` : "Not specified"}
               </p>
             </div>
 

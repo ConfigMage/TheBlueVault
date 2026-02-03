@@ -21,13 +21,13 @@ function HatsPageContent() {
   const [filters, setFilters] = useState<{
     team: string;
     colorDesign: string;
-    storageBin?: string;
+    location?: string;
     player?: string;
     itemType?: "all" | "hats" | "jerseys";
   }>({
     team: "",
     colorDesign: "",
-    storageBin: "",
+    location: "",
   });
   const [showForm, setShowForm] = useState(false);
   const [selectedHat, setSelectedHat] = useState<Hat | null>(null);
@@ -79,7 +79,7 @@ function HatsPageContent() {
       !hat.color_design?.toLowerCase().includes(filters.colorDesign.toLowerCase())
     )
       return false;
-    if (filters.storageBin && hat.storage_bin !== filters.storageBin) return false;
+    if (filters.location && hat.location !== filters.location) return false;
     return true;
   });
 
