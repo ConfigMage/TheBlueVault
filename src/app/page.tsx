@@ -7,7 +7,7 @@ import { StatsCards } from "@/components/dashboard/stats-cards";
 import { TeamChart } from "@/components/dashboard/team-chart";
 import { RecentItems } from "@/components/dashboard/recent-items";
 import { Filters } from "@/components/merchandise/filters";
-import { STORAGE_BINS } from "@/lib/constants";
+import { LOCATIONS } from "@/lib/constants";
 
 type RecentItem = (Hat | Jersey) & { type: "hat" | "jersey" };
 
@@ -18,13 +18,13 @@ export default function DashboardPage() {
   const [filters, setFilters] = useState<{
     team: string;
     colorDesign: string;
-    storageBin?: string;
+    location?: string;
     player?: string;
     itemType?: "all" | "hats" | "jerseys";
   }>({
     team: "",
     colorDesign: "",
-    storageBin: "",
+    location: "",
     itemType: "all",
   });
 
@@ -60,7 +60,7 @@ export default function DashboardPage() {
       !hat.color_design?.toLowerCase().includes(filters.colorDesign.toLowerCase())
     )
       return false;
-    if (filters.storageBin && hat.storage_bin !== filters.storageBin) return false;
+    if (filters.location && hat.location !== filters.location) return false;
     return true;
   });
 
@@ -71,6 +71,7 @@ export default function DashboardPage() {
       !jersey.color_design?.toLowerCase().includes(filters.colorDesign.toLowerCase())
     )
       return false;
+    if (filters.location && jersey.location !== filters.location) return false;
     return true;
   });
 
@@ -79,12 +80,12 @@ export default function DashboardPage() {
   const displayHats = itemType === "jerseys" ? [] : filteredHats;
   const displayJerseys = itemType === "hats" ? [] : filteredJerseys;
 
-  // Storage bin counts (only for hats)
-  const storageBinCounts: Record<string, number> = {};
-  STORAGE_BINS.forEach((bin) => {
-    storageBinCounts[bin] = filteredHats.filter(
-      (hat) => hat.storage_bin === bin
-    ).length;
+  // Location counts (for all items)
+  const locationCounts: Record<string, number> = {};
+  LOCATIONS.forEach((loc) => {
+    locationCounts[loc] =
+      filteredHats.filter((hat) => hat.location === loc).length +
+      filteredJerseys.filter((jersey) => jersey.location === loc).length;
   });
 
   // Team counts
@@ -124,7 +125,7 @@ export default function DashboardPage() {
       <StatsCards
         totalHats={displayHats.length}
         totalJerseys={displayJerseys.length}
-        storageBinCounts={storageBinCounts}
+        locationCounts={locationCounts}
         isLoading={isLoading}
       />
 

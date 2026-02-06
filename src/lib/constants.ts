@@ -31,7 +31,7 @@ export const MLB_TEAMS = [
   "Washington Nationals",
 ] as const;
 
-export const STORAGE_BINS = ["Box 1", "Box 2", "Box 3", "Box 4"] as const;
+export const LOCATIONS = ["Car", "Office", "House", "Storage"] as const;
 
 export type MLBTeam = (typeof MLB_TEAMS)[number];
-export type StorageBin = (typeof STORAGE_BINS)[number];
+export type Location = (typeof LOCATIONS)[number];

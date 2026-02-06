@@ -21,12 +21,13 @@ function JerseysPageContent() {
   const [filters, setFilters] = useState<{
     team: string;
     colorDesign: string;
-    storageBin?: string;
+    location?: string;
     player?: string;
     itemType?: "all" | "hats" | "jerseys";
   }>({
     team: "",
     colorDesign: "",
+    location: "",
     player: "",
   });
   const [showForm, setShowForm] = useState(false);
@@ -81,6 +82,7 @@ function JerseysPageContent() {
         .includes(filters.colorDesign.toLowerCase())
     )
       return false;
+    if (filters.location && jersey.location !== filters.location) return false;
     if (
       filters.player &&
       !jersey.player.toLowerCase().includes(filters.player.toLowerCase())

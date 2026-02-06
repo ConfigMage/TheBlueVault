@@ -5,13 +5,13 @@ import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TeamSelect } from "./team-select";
-import { StorageBinSelect } from "./storage-bin-select";
+import { LocationSelect } from "./location-select";
 import { cn } from "@/lib/utils";
 
 interface FilterValues {
   team: string;
   colorDesign: string;
-  storageBin?: string;
+  location?: string;
   player?: string;
   itemType?: "all" | "hats" | "jerseys";
 }
@@ -28,7 +28,7 @@ export function Filters({ type, filters, onChange }: FiltersProps) {
   const hasActiveFilters =
     filters.team ||
     filters.colorDesign ||
-    filters.storageBin ||
+    filters.location ||
     filters.player ||
     (filters.itemType && filters.itemType !== "all");
 
@@ -36,7 +36,7 @@ export function Filters({ type, filters, onChange }: FiltersProps) {
     onChange({
       team: "",
       colorDesign: "",
-      storageBin: "",
+      location: "",
       player: "",
       itemType: "all",
     });
@@ -105,14 +105,12 @@ export function Filters({ type, filters, onChange }: FiltersProps) {
           />
         </div>
 
-        {(type === "hats" || type === "dashboard") && (
-          <StorageBinSelect
-            label="Storage Box"
-            value={filters.storageBin || ""}
-            onChange={(storageBin) => onChange({ ...filters, storageBin })}
-            showAll
-          />
-        )}
+        <LocationSelect
+          label="Location"
+          value={filters.location || ""}
+          onChange={(location) => onChange({ ...filters, location })}
+          showAll
+        />
 
         {type === "jerseys" && (
           <div>

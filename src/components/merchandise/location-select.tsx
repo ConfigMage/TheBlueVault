@@ -1,9 +1,9 @@
 "use client";
 
 import { Select } from "@/components/ui/select";
-import { STORAGE_BINS } from "@/lib/constants";
+import { LOCATIONS } from "@/lib/constants";
 
-interface StorageBinSelectProps {
+interface LocationSelectProps {
   value: string;
   onChange: (value: string) => void;
   label?: string;
@@ -11,13 +11,13 @@ interface StorageBinSelectProps {
   showAll?: boolean;
 }
 
-export function StorageBinSelect({
+export function LocationSelect({
   value,
   onChange,
   label,
   required,
   showAll = false,
-}: StorageBinSelectProps) {
+}: LocationSelectProps) {
   return (
     <Select
       label={label}
@@ -25,11 +25,11 @@ export function StorageBinSelect({
       onChange={(e) => onChange(e.target.value)}
       required={required}
     >
-      {showAll && <option value="">All Boxes</option>}
-      {!showAll && <option value="">Select a box</option>}
-      {STORAGE_BINS.map((bin) => (
-        <option key={bin} value={bin}>
-          {bin}
+      {showAll && <option value="">All Locations</option>}
+      {!showAll && <option value="">Select a location</option>}
+      {LOCATIONS.map((location) => (
+        <option key={location} value={location}>
+          {location}
         </option>
       ))}
     </Select>

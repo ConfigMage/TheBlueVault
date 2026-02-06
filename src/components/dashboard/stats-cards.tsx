@@ -2,19 +2,19 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { STORAGE_BINS } from "@/lib/constants";
+import { LOCATIONS } from "@/lib/constants";
 
 interface StatsCardsProps {
   totalHats: number;
   totalJerseys: number;
-  storageBinCounts: Record<string, number>;
+  locationCounts: Record<string, number>;
   isLoading?: boolean;
 }
 
 export function StatsCards({
   totalHats,
   totalJerseys,
-  storageBinCounts,
+  locationCounts,
   isLoading,
 }: StatsCardsProps) {
   if (isLoading) {
@@ -85,21 +85,21 @@ export function StatsCards({
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-[var(--muted-foreground)]">
-            Storage Box Breakdown (Hats)
+            Items by Location
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {STORAGE_BINS.map((bin) => (
+            {LOCATIONS.map((location) => (
               <div
-                key={bin}
+                key={location}
                 className="flex flex-col items-center rounded-lg bg-[var(--muted)] p-3"
               >
                 <span className="text-sm text-[var(--muted-foreground)]">
-                  {bin}
+                  {location}
                 </span>
                 <span className="text-2xl font-bold text-[var(--primary)]">
-                  {storageBinCounts[bin] || 0}
+                  {locationCounts[location] || 0}
                 </span>
               </div>
             ))}
